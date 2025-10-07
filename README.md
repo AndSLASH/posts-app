@@ -1,53 +1,110 @@
-Welcome to your new TanStack app!
+# Posts App
 
-# Getting Started
+Приложение для просмотра постов, созданное с использованием React и TanStack Router.
 
-To run this application:
+## 🌟 Демо
+
+**[Посмотреть демо](https://posts-app-git-develop-js-ninjas-projects.vercel.app/)**
+
+## 🚀 Технологии
+
+- **React 19** - UI библиотека
+- **TypeScript** - типизация
+- **TanStack Router** - файловый роутинг
+- **Tailwind CSS** - стилизация
+- **Vite** - сборщик
+- **JSONPlaceholder API** - источник данных
+
+## 📦 Функциональность
+
+- ✅ Список постов с пагинацией (20 постов)
+- ✅ Просмотр отдельного поста
+- ✅ Обработка ошибок и состояний загрузки
+- ✅ Навигация между страницами
+- ✅ Responsive дизайн
+- ✅ Типобезопасность
+
+## 🛠 Установка и запуск
 
 ```bash
+# Клонирование репозитория
+git clone https://github.com/AndSLASH/posts-app.git
+cd posts-app
+
+# Установка зависимостей
 npm install
-npm run start
-```
 
-# Building For Production
+# Запуск в режиме разработки
+npm run dev
 
-To build this application for production:
-
-```bash
+# Сборка для продакшн
 npm run build
+
+# Предварительный просмотр сборки
+npm run preview
 ```
 
-## Testing
+## 📁 Структура проекта
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+```
+src/
+├── api/          # API функции
+├── components/   # React компоненты
+├── routes/       # Файловый роутинг
+├── types/        # TypeScript типы
+└── styles.css    # Глобальные стили
+```
+
+## 🧪 Тестирование
 
 ```bash
 npm run test
 ```
 
-## Styling
+## 🎨 Стилизация
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+Проект использует [Tailwind CSS](https://tailwindcss.com/) для стилизации.
 
-## Routing
+## 🛣 Роутинг
 
-This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as files in `src/routes`.
+Приложение использует [TanStack Router](https://tanstack.com/router) с файловым роутингом:
 
-### Adding A Route
+- `/` - редирект на `/posts`
+- `/posts` - список постов
+- `/posts/:id` - страница отдельного поста
 
-To add a new route to your application just add another a new file in the `./src/routes` directory.
+### Добавление нового роута
 
-TanStack will automatically generate the content of the route file for you.
+Создайте новый файл в директории `./src/routes/`. TanStack Router автоматически обработает новый маршрут.
 
-Now that you have two routes you can use a `Link` component to navigate between them.
+### Навигация
 
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
+Для SPA навигации используйте компонент `Link`:
 
 ```tsx
 import { Link } from '@tanstack/react-router';
+
+<Link to="/posts">Перейти к постам</Link>;
 ```
+
+## 📝 API
+
+Приложение использует [JSONPlaceholder](https://jsonplaceholder.typicode.com/) для получения данных:
+
+- `GET /posts` - список постов
+- `GET /posts/:id` - отдельный пост
+
+## 🤝 Разработка
+
+1. Форкните репозиторий
+2. Создайте ветку для новой функции (`git checkout -b feature/amazing-feature`)
+3. Зафиксируйте изменения (`git commit -m 'Add amazing feature'`)
+4. Отправьте в ветку (`git push origin feature/amazing-feature`)
+5. Создайте Pull Request
+
+## 📄 Лицензия
+
+Этот проект распространяется под лицензией MIT.
 
 Then anywhere in your JSX you can use it like so:
 
