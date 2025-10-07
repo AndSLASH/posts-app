@@ -1,13 +1,10 @@
-import { Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router';
 
-import { useState } from 'react'
-import { ChevronDown, ChevronRight, Home, Menu, X } from 'lucide-react'
+import { useState } from 'react';
+import { Home, List, Menu, X } from 'lucide-react';
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({})
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -60,11 +57,20 @@ export default function Header() {
             <span className="font-medium">Home</span>
           </Link>
 
-          {/* Demo Links Start */}
-
-          {/* Demo Links End */}
+          <Link
+            to="/posts"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <List size={20} />
+            <span className="font-medium">Posts</span>
+          </Link>
         </nav>
       </aside>
     </>
-  )
+  );
 }
