@@ -7,10 +7,9 @@ import { ArrowLeftIcon } from 'lucide-react';
 export const Route = createFileRoute('/posts/$postId')({
   loader: async ({ params }) => {
     const postId = parseInt(params.postId, 10);
-    if (isNaN(postId)) throw new Error('Неверный ID поста');
+    if (isNaN(postId)) return { ok: false, error: 'Неверный ID поста' };
     const result = await fetchPost(postId);
-    if (!result.ok) throw new Error(result.error);
-    return result.data;
+    return result;
   },
   component: PostPage,
   pendingComponent: () => (
@@ -18,26 +17,32 @@ export const Route = createFileRoute('/posts/$postId')({
       Загрузка...
     </div>
   ),
-  errorComponent: ({ error }) => (
-    <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
-      <div className="flex flex-col gap-6">
-        <h1 className="text-4xl font-bold text-red-400">
-          Ошибка загрузки поста
-        </h1>
-        <p className="text-lg text-gray-300">{error.message}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transition-colors"
-        >
-          Попробовать снова
-        </button>
-      </div>
-    </section>
-  ),
 });
 
 function PostPage() {
-  const post: Post = useLoaderData({ from: '/posts/$postId' });
+  const result = useLoaderData({ from: '/posts/$postId' });
+
+  if (!result.ok) {
+    return (
+      <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
+        <div className="flex flex-col gap-6">
+          <h1 className="text-4xl font-bold text-red-400">
+            Ошибка загрузки поста
+          </h1>
+          <p className="text-lg text-gray-300">{result.error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transition-colors"
+          >
+            Попробовать снова
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  const post: Post = result.data!;
+
   return (
     <section className="py-10 px-5 bg-[#282c34] text-white text-[calc(10px+2vmin)]">
       <Container>

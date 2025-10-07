@@ -6,8 +6,7 @@ import { createFileRoute, Link, useLoaderData } from '@tanstack/react-router';
 export const Route = createFileRoute('/posts/')({
   loader: async () => {
     const result = await fetchPosts();
-    if (!result.ok) throw new Error(result.error);
-    return result.data;
+    return result;
   },
   component: PostsIndexPage,
   pendingComponent: () => (
@@ -15,26 +14,31 @@ export const Route = createFileRoute('/posts/')({
       Загрузка...
     </div>
   ),
-  errorComponent: ({ error }) => (
-    <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
-      <div className="flex flex-col gap-6">
-        <h1 className="text-4xl font-bold text-red-400">
-          Ошибка загрузки постов
-        </h1>
-        <p className="text-lg text-gray-300">{error.message}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transition-colors"
-        >
-          Попробовать снова
-        </button>
-      </div>
-    </section>
-  ),
 });
 
 function PostsIndexPage() {
-  const allPosts: Post[] = useLoaderData({ from: '/posts/' });
+  const result = useLoaderData({ from: '/posts/' });
+
+  if (!result.ok) {
+    return (
+      <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
+        <div className="flex flex-col gap-6">
+          <h1 className="text-4xl font-bold text-red-400">
+            Ошибка загрузки постов
+          </h1>
+          <p className="text-lg text-gray-300">{result.error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transition-colors"
+          >
+            Попробовать снова
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  const allPosts: Post[] = result.data || [];
   const posts = allPosts.slice(0, 20);
 
   return (
@@ -49,7 +53,11 @@ function PostsIndexPage() {
               className="rounded-md p-4 hover:bg-gray-700 hover:text-[#61dafb] hover:underline transform transition-all ease-in-out duration-300"
               key={post.id}
             >
-              <Link to="/posts/$postId" params={{ postId: post.id.toString() }}>
+              <Link
+                to="/posts/$postId"
+                params={{ postId: post.id.toString() }}
+                preload="intent"
+              >
                 <h2>{`${post.id}. ${post.title}`}</h2>
               </Link>
             </li>

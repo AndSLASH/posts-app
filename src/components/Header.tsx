@@ -17,7 +17,7 @@ export default function Header() {
           <Menu size={24} />
         </button>
         <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
+          <Link to="/" preload="intent">
             <img
               src="/tanstack-word-logo-white.svg"
               alt="TanStack Logo"
@@ -52,6 +52,7 @@ export default function Header() {
               className:
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
+            preload="intent"
           >
             <Home size={20} />
             <span className="font-medium">Home</span>
@@ -65,6 +66,7 @@ export default function Header() {
               className:
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
+            preload="intent"
           >
             <List size={20} />
             <span className="font-medium">Posts</span>
