@@ -23,8 +23,8 @@ export const Route = createRootRoute({
     </>
   ),
   notFoundComponent: () => (
-    <section className="py-10 px-5 bg-[#282c34] text-white min-h-screen">
-      <div className="max-w-3xl mx-auto text-center">
+    <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
+      <div className="flex flex-col gap-6">
         <h1 className="text-4xl font-bold mb-4 text-red-400">
           404 - Страница не найдена
         </h1>
