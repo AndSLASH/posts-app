@@ -1,12 +1,39 @@
-import { fetchPosts } from '@/api/posts';
+import { fetchPosts, fetchPostsCount } from '@/api/posts';
 import Container from '@/components/Container';
+import Pagination from '@/components/Pagination';
 import type { Post } from '@/types/Posts';
-import { createFileRoute, Link, useLoaderData } from '@tanstack/react-router';
+import {
+  createFileRoute,
+  Link,
+  useLoaderData,
+  useSearch,
+} from '@tanstack/react-router';
 
 export const Route = createFileRoute('/posts/')({
-  loader: async () => {
-    const result = await fetchPosts();
-    return result;
+  validateSearch: (searchParams: Record<string, unknown>) => {
+    const page = Number(searchParams.page) || 1;
+    const limit = Number(searchParams.limit) || 20;
+    return {
+      page,
+      limit,
+      from: (page - 1) * limit + 1,
+      to: page * limit,
+    };
+  },
+  loaderDeps: ({ search }) => ({
+    page: search.page,
+    limit: search.limit,
+  }),
+  loader: async ({ deps }) => {
+    const [postsResult, totalCount] = await Promise.all([
+      fetchPosts({ page: deps.page, limit: deps.limit }),
+      fetchPostsCount(),
+    ]);
+
+    return {
+      ...postsResult,
+      total: totalCount,
+    };
   },
   component: PostsIndexPage,
   pendingComponent: () => (
@@ -18,6 +45,7 @@ export const Route = createFileRoute('/posts/')({
 
 function PostsIndexPage() {
   const result = useLoaderData({ from: '/posts/' });
+  const search = useSearch({ from: '/posts/' });
 
   if (!result.ok) {
     return (
@@ -29,7 +57,7 @@ function PostsIndexPage() {
           <p className="text-lg text-gray-300">{result.error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transition-colors"
+            className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transform transition-bg ease-in-out duration-300"
           >
             Попробовать снова
           </button>
@@ -38,8 +66,8 @@ function PostsIndexPage() {
     );
   }
 
-  const allPosts: Post[] = result.data || [];
-  const posts = allPosts.slice(0, 20);
+  const totalPages = Math.ceil((result.total || 100) / search.limit);
+  const posts: Post[] = result.data || [];
 
   return (
     <section className="py-10 px-5 bg-[#282c34] text-white text-[calc(10px+2vmin)]">
@@ -63,6 +91,13 @@ function PostsIndexPage() {
             </li>
           ))}
         </ul>
+
+        <Pagination
+          currentPage={search.page}
+          totalPages={totalPages}
+          basePath="/posts"
+          searchParams={{ limit: search.limit }}
+        />
       </Container>
     </section>
   );
