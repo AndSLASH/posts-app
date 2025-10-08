@@ -60,6 +60,7 @@ export default function Header() {
 
           <Link
             to="/posts"
+            search={{ page: 1, limit: 20, from: 0, to: 19 }}
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
             activeProps={{
