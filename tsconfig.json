@@ -20,10 +20,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-    },
-    "ignoreDeprecations": "6.0"
+      "@/*": ["./src/*"]
+    }
   }
 }

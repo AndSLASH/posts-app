@@ -1,13 +1,10 @@
-import { Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router';
 
-import { useState } from 'react'
-import { ChevronDown, ChevronRight, Home, Menu, X } from 'lucide-react'
+import { useState } from 'react';
+import { Home, List, Menu, X } from 'lucide-react';
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({})
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -20,7 +17,7 @@ export default function Header() {
           <Menu size={24} />
         </button>
         <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
+          <Link to="/" preload="intent">
             <img
               src="/tanstack-word-logo-white.svg"
               alt="TanStack Logo"
@@ -55,16 +52,28 @@ export default function Header() {
               className:
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
+            preload="intent"
           >
             <Home size={20} />
             <span className="font-medium">Home</span>
           </Link>
 
-          {/* Demo Links Start */}
-
-          {/* Demo Links End */}
+          <Link
+            to="/posts"
+            search={{ page: 1, limit: 20, from: 0, to: 19 }}
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+            preload="intent"
+          >
+            <List size={20} />
+            <span className="font-medium">Posts</span>
+          </Link>
         </nav>
       </aside>
     </>
-  )
+  );
 }
