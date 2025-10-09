@@ -4,7 +4,7 @@
 
 ## 🌟 Демо
 
-**[Посмотреть демо](https://posts-app-git-develop-js-ninjas-projects.vercel.app/)**
+**[Посмотреть демо](https://posts-app-sepia.vercel.app/)**
 
 ## 🚀 Технологии
 
