@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
 import { useState } from 'react';
-import { Home, List, Menu, X } from 'lucide-react';
+import { CopyCheck, Home, List, Menu, X } from 'lucide-react';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,6 +71,20 @@ export default function Header() {
           >
             <List size={20} />
             <span className="font-medium">Posts</span>
+          </Link>
+
+          <Link
+            to="/chips"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+            preload="intent"
+          >
+            <CopyCheck size={20} />
+            <span className="font-medium">Chips</span>
           </Link>
         </nav>
       </aside>
