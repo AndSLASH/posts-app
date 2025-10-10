@@ -8,12 +8,7 @@ interface IChipsContextState {
   checkIsSelected: (id: string) => boolean;
 }
 
-export const ChipsContext = createContext<IChipsContextState>({
-  valueList: undefined,
-  selectedValue: undefined,
-  onSelect: () => {},
-  checkIsSelected: () => false,
-});
+export const ChipsContext = createContext<IChipsContextState | null>(null);
 
 export const useChipsContext = () => {
   const context = useContext(ChipsContext);
