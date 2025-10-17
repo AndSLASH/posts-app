@@ -1,0 +1,6 @@
+{
+  "title": "Posts",
+  "loading": "Loading...",
+  "error_title": "Failed to load posts",
+  "retry": "Try again"
+}

@@ -26,10 +26,10 @@ export const Route = createRootRoute({
     <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
       <div className="flex flex-col gap-6">
         <h1 className="text-4xl font-bold mb-4 text-red-400">
-          404 - Страница не найдена
+          404 - Сторінка не знайдена
         </h1>
         <p className="text-lg text-gray-300 mb-6">
-          Запрашиваемая страница не существует
+          Запитувана сторінка не існує
         </p>
       </div>
     </section>

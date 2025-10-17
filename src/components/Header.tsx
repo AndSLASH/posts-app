@@ -1,10 +1,13 @@
 import { Link } from '@tanstack/react-router';
 
 import { useState } from 'react';
-import { CopyCheck, Home, List, Menu, X } from 'lucide-react';
+import { CopyCheck, Globe, Home, List, Menu, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation('header');
 
   return (
     <>
@@ -33,7 +36,7 @@ export default function Header() {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">Navigation</h2>
+          <h2 className="text-xl font-bold">{t('menu')}</h2>
           <button
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
@@ -55,7 +58,7 @@ export default function Header() {
             preload="intent"
           >
             <Home size={20} />
-            <span className="font-medium">Home</span>
+            <span className="font-medium">{t('home')}</span>
           </Link>
 
           <Link
@@ -70,7 +73,7 @@ export default function Header() {
             preload="intent"
           >
             <List size={20} />
-            <span className="font-medium">Posts</span>
+            <span className="font-medium">{t('posts')}</span>
           </Link>
 
           <Link
@@ -84,9 +87,13 @@ export default function Header() {
             preload="intent"
           >
             <CopyCheck size={20} />
-            <span className="font-medium">Chips</span>
+            <span className="font-medium">{t('chips')}</span>
           </Link>
         </nav>
+        <div className="flex justify-between items-center px-4 h-16 border-gray-700">
+          <Globe />
+          <LanguageSwitcher />
+        </div>
       </aside>
     </>
   );

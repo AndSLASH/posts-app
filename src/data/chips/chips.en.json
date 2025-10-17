@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "label": "React",
+    "category": "library",
+    "description": "Library for building user interfaces. Lets you compose apps from components that update without a full reload."
+  },
+  {
+    "id": "2",
+    "label": "TypeScript",
+    "category": "language",
+    "description": "A typed superset of JavaScript that adds static types."
+  },
+  {
+    "id": "3",
+    "label": "TanStack Router",
+    "category": "routing",
+    "description": "A library for routing in React applications."
+  },
+  {
+    "id": "4",
+    "label": "Tailwind CSS",
+    "category": "framework",
+    "description": "Utility-first CSS framework for rapid UI development."
+  },
+  {
+    "id": "5",
+    "label": "Vite",
+    "category": "build tool",
+    "description": "A build tool for modern web projects offering fast dev startup and optimized build."
+  }
+]

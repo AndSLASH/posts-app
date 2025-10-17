@@ -1,0 +1,7 @@
+{
+  "title": "Post",
+  "loading": "Loading...",
+  "error_title": "Failed to load post",
+  "back": "Back",
+  "invalid_id": "Invalid post ID"
+}

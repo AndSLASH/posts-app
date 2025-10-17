@@ -8,6 +8,16 @@ import {
   useLoaderData,
   useSearch,
 } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
+
+function PostsPending() {
+  const { t } = useTranslation('posts');
+  return (
+    <div className="flex justify-center items-center h-screen text-2xl text-[#61dafb]">
+      {t('loading')}
+    </div>
+  );
+}
 
 export const Route = createFileRoute('/posts/')({
   validateSearch: (searchParams: Record<string, unknown>) => {
@@ -36,30 +46,27 @@ export const Route = createFileRoute('/posts/')({
     };
   },
   component: PostsIndexPage,
-  pendingComponent: () => (
-    <div className="flex justify-center items-center h-screen text-2xl text-[#61dafb]">
-      Загрузка...
-    </div>
-  ),
+  pendingComponent: PostsPending,
 });
 
 function PostsIndexPage() {
   const result = useLoaderData({ from: '/posts/' });
   const search = useSearch({ from: '/posts/' });
+  const { t } = useTranslation('posts');
 
   if (!result.ok) {
     return (
       <section className="flex justify-center items-center h-screen py-10 px-5 bg-[#282c34] text-white text-center">
         <div className="flex flex-col gap-6">
           <h1 className="text-4xl font-bold text-red-400">
-            Ошибка загрузки постов
+            {t('error_loading_posts')}
           </h1>
           <p className="text-lg text-gray-300">{result.error}</p>
           <button
             onClick={() => window.location.reload()}
             className="bg-[#61dafb] text-black px-6 py-2 rounded hover:bg-blue-400 transform transition-bg ease-in-out duration-300"
           >
-            Попробовать снова
+            {t('try_again')}
           </button>
         </div>
       </section>
@@ -73,7 +80,7 @@ function PostsIndexPage() {
     <section className="py-10 px-5 bg-[#282c34] text-white text-[calc(10px+2vmin)]">
       <Container>
         <h1 className="text-4xl font-bold mb-4 text-center text-[#61dafb]">
-          Посты
+          {t('title')}
         </h1>
         <ul className="flex flex-col gap-3">
           {posts.map(post => (
